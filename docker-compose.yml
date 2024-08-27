@@ -1,0 +1,21 @@
+#This is intended for docker-development environment
+version: '3.2'
+
+services:  
+  #Backend   
+  yii2-micro:
+    build: ./
+    container_name: yii-micro
+    ports:
+      - 40812:80
+    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
+    networks:
+        - yii2micro-network
+networks:
+    yii2micro-network:
+        driver: bridge
+
